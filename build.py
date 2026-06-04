@@ -39,14 +39,15 @@ if justClean:
         endGenerated = file.find(endBuildScriptTag) + len(endBuildScriptTag)
 
         if startGenerated == -1 or endGenerated == -1:
-            os.remove(cFileName)
-        
-        writeFile = file[:startGenerated] + file[endGenerated:]
-        filePtr = open(cFileName, "w")
-        filePtr.write(writeFile)
-        filePtr.close()
-        if len(writeFile.strip()) == 0:
-            os.remove(cFileName)
+            if len(file.strip()) == 0:
+                os.remove(cFileName)
+        else:
+            writeFile = file[:startGenerated] + file[endGenerated:]
+            filePtr = open(cFileName, "w")
+            filePtr.write(writeFile)
+            filePtr.close()
+            if len(writeFile.strip()) == 0:
+                os.remove(cFileName)
 
     filePtr = open(fileName, "r")
     file = filePtr.read()
@@ -59,7 +60,6 @@ if justClean:
         exit()
 
     writeFile = file[:startGenerated] + file[endGenerated:]
-    print(writeFile)
     filePtr = open(fileName, "w")
     file = filePtr.write(writeFile)
     filePtr.close()
@@ -97,7 +97,6 @@ if mainStart == -1:
 
 for include in neededIncludes:
     if file.find(include) == -1:
-        print("could not find: ",include)
         allNeededInclueds = False
         break
 
@@ -131,7 +130,6 @@ if not allNeededInclueds:
         if file.find(neededIncludes[i]) == -1:
             writeFile += neededIncludes[i] + '\n'
     writeFile += '\n' + endBuildScriptTag + file[temp:]
-    print(writeFile)
     filePtr = open(fileName, "w")
     filePtr.write(writeFile)
     filePtr.close()
@@ -143,7 +141,7 @@ for e in entrys:
     if overwriteType != -1:
         type = e[overwriteType+2:]
     else:
-        temp = e.rfind(" ")
+        temp = e[:e.find(";")].rfind(" ")
         type = e[:temp]
     temp = e.find(";")
     name = e[e[:temp].rfind(" "):temp]
