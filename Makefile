@@ -19,5 +19,7 @@ $(target) : $(oFiles)
 
 
 clean: 
-	rm $(oFiles)
 	python build.py --clean
+	rm -f $(shell find .o) $(target)
+build:
+	$(foreach file,$(hFiles),$(shell python build.py --file $(file)))
