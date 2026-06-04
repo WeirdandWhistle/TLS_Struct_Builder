@@ -71,16 +71,22 @@ if justClean:
 packTable = {
     "uint8_t" : "*iter = [value];\n",
     "uint24" : "get_uint24_bytes(iter, [value]);\n",
+    "uint16_t" : "get_uint16_bytes(iter, [value]);\n",
+    "uint32_t" : "get_uint32_bytes(iter, [value]);\n",
     "unsigned char*" : "memcpy([value], iter, [length]);\n"
 }
 unpackTable = {
     "uint8_t" : "[value] = *iter;\n",
     "uint24" : "get_uint24_num(&[value], iter);\n",
+    "uint16_t" : "get_uint16_num(&[value], iter);\n",
+    "uint32_t" : "get_uint32_num(&[value], iter);\n",
     "unsigned char*" : "[value] = malloc([length]);\nmemcpy([value], iter, [length]);\n"
 }
 lengthTable = {
     "uint8_t" : 1,
     "uint24" : 3,
+    "uint16_t": 2,
+    "uint32_t": 4,
     "unsigned char*" : "[value]_length"
 }
 
