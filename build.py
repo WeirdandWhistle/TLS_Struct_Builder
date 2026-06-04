@@ -62,6 +62,8 @@ lengthTable = {
 }
 
 mainStart = file.find("--- main ---")
+if mainStart == -1:
+    exit()
 
 mainAfter = file[mainStart:]
 
@@ -168,3 +170,5 @@ else:
 filePtr = open(cFileName, "w")
 filePtr.write(writeFile)
 filePtr.close()
+
+# print("build and wrote the new c file!")

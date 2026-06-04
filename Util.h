@@ -1,6 +1,7 @@
 #ifndef UTIL
 #define UTIL
 #include <stdint.h>
+#include <arpa/inet.h>
     void get_uint24_bytes(unsigned char* a, uint32_t b);
     void get_uint24_num(uint32_t* a, unsigned char* b);
     void get_uint16_bytes(unsigned char* a, uint16_t b);
