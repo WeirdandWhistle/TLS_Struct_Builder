@@ -158,7 +158,10 @@ if os.path.isfile(cFileName):
     startGenerated = file.find(startBuildScriptTag)
     endGenerated = file.find(endBuildScriptTag) + len(endBuildScriptTag)
 
-    writeFile = file[:startGenerated] + file[endGenerated:] + startBuildScriptTag + '\n' + (includeHeader if addInclude else "") + newFunctions + endBuildScriptTag
+    if startGenerated == -1 or endGenerated == -1:
+        writeFile = file[::] + startBuildScriptTag + '\n' + (includeHeader if addInclude else "") + newFunctions + endBuildScriptTag
+    else:
+        writeFile = file[:startGenerated] + file[endGenerated:] + startBuildScriptTag + '\n' + (includeHeader if addInclude else "") + newFunctions + endBuildScriptTag
 else:
     writeFile = startBuildScriptTag + includeHeader + newFunctions + endBuildScriptTag
 
